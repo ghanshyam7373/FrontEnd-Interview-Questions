@@ -615,22 +615,19 @@ Overall, immutability is a fundamental principle in Redux that promotes a predic
 
 HTML elements can be broadly categorized into several types based on their purpose and functionality. Here are the main types of HTML elements:
 
-1. **Semantic Elements**: These elements provide meaning and structure to the content. They represent different sections of a webpage and contribute to its overall organization and accessibility. Examples include <header> , <nav> , <section> , <article> , <footer> ,
+1. **Semantic Elements**: These elements provide meaning and structure to the content. They represent different sections of a webpage and contribute to its overall organization and accessibility. Examples include <header> , <nav> , <section> , <article> , <footer> , <aside> , <main> , etc.
 
-   ` `<aside> , <main> , etc.
+2. **Text-level Elements**: These elements are used to manipulate and format text within a document. They include headings, paragraphs , anchors, spans, emphasized text, strong text , subscript, superscript, etc.
 
-2. **Text-level Elements**: These elements are used to manipulate and format text within a document. They include headings ( <h1> to <h6> ), paragraphs ( <p> ), anchors ( <a> ), spans ( <span> ), emphasized text ( <em> ), strong text ( <strong> ), subscript ( <sub> ), superscript ( <sup> ), etc.
-3. **Form Elements**: These elements are used to create interactive forms for collecting user input. They include input fields ( <input> ), checkboxes ( <input type="checkbox"> ), radio buttons ( <input type="radio"> ), select dropdowns ( <select> ), text areas ( <textarea> ), buttons ( <button> ), etc.
-4. **Media Elements**: These elements are used to embed and display different types of media content. They include images ( <img> ), audio ( <audio> ), video ( <video> ), and embedded content like YouTube videos ( <iframe> ).
-5. **List Elements**: These elements are used to create ordered lists ( <ol> ), unordered lists
+3. **Form Elements**: These elements are used to create interactive forms for collecting user input. They include input fields, checkboxes, radio buttons, select dropdowns, text areas, buttons, etc.
 
-   ( <ul> ), and definition lists ( <dl> ).
+4. **Media Elements**: These elements are used to embed and display different types of media content. They include images, audio, video, and embedded content like YouTube videos.
+
+5. **List Elements**: These elements are used to create ordered lists, unordered lists, and definition lists.
 
 6. **Table Elements**: These elements are used to create tables and organize tabular data. They include <table> , <tr> (table row), <th> (table header), <td> (table data/cell), etc.
 7. **Container Elements**: These elements are used to group and structure other elements within a document. Examples include <div> (generic container), <span> (inline container), <fieldset> , <legend> , <blockquote> , <figure> , <figcaption> , etc.
-8. **Metadata Elements**: These elements provide additional information about the document or affect its behavior. They include the <head> element (which contains meta information),
-
-   ` `<title> , <meta> , <base> , etc.
+8. **Metadata Elements**: These elements provide additional information about the document or affect its behavior. They include the head element (which contains meta information)
 
 These are some of the main types of HTML elements, each serving a specific purpose in structuring and presenting content on the web. It's important to use appropriate elements to ensure semantic and accessible markup.
 
@@ -647,9 +644,7 @@ The display property in CSS is used to specify how an element should be displaye
 - Elements with display: block are rendered as block-level elements.
 - Block-level elements take up the full available width of their parent container and start on a new line.
 - By default, block-level elements have width, height, padding, and margin properties that can be adjusted.
-- Examples of block-level elements include <div> , <p> , <h1> to <h6> , <ul> , <li> ,
-
-` `<header> , and <footer> .
+- Examples of block-level elements include div, p, h1 to h6, ul, li,header , and footer .
 
 2. **display: inline :**
 
@@ -657,7 +652,7 @@ The display property in CSS is used to specify how an element should be displaye
 - Inline-level elements do not start on a new line and only take up as much width as necessary to contain their content.
 - Inline elements respect the surrounding content and can appear beside each other horizontally.
 - Inline elements do not have width, height, padding, or margin properties applied by default (except for left and right margins).
-- Examples of inline-level elements include <span> , <a> , <strong> , <em> , <img> , <input> , and <label> .
+- Examples of inline-level elements include span , a , strong , em , img , input , and label .
 
 3. **display: inline-block :**
 
@@ -665,7 +660,7 @@ The display property in CSS is used to specify how an element should be displaye
 - Inline-block elements are laid out in a similar way to inline elements, appearing on the same line if there is enough space.
 - Unlike inline elements, inline-block elements can have width, height, padding, and margin properties applied to them.
 - Inline-block elements can also have vertical alignment properties applied to them.
-- Examples of inline-block elements include <button> , <textarea> , and some form elements.
+- Examples of inline-block elements include button, textarea , and some form elements.
 
 In summary, display: block creates block-level elements that start on a new line and take up the full width, display: inline creates inline-level elements that flow within the content, and display: inline- block creates elements that behave like inline elements but can have width, height, and vertical alignment properties. The choice of display property depends on the desired layout and behavior for the specific element.
 
