@@ -2389,4 +2389,108 @@ There are several types and levels of testing, each serving different purposes a
 
 Testing is an essential part of the software development lifecycle (SDLC) and helps improve the quality, reliability, and maintainability of software applications. By identifying and addressing defects early in the development process, testing helps reduce the likelihood of issues and ensures that the software meets the needs and expectations of users and stakeholders.
 
+﻿**Q-121 When to use useImperativeHandle, useLayoutEffect, and useDebugValue?**
 
+ 1. **useImperativeHandle**
+
+Usually when you use useRef you are given the instance value of the component the ref is attached to. This allows you to interact with the DOM element directly. useImperativeHandle is very similar, but it lets you do two things:
+
+- It gives you control over the value that is returned. Instead of returning the instance element, you explicitly state what the return value will be (see snippet below).
+- It allows you to replace native functions (such as blur, focus, etc) with functions of your own, thus allowing side-effects to the normal behavior, or a different behavior altogether. Though, you can call the function whatever you like.
+
+Example: 
+In this example, the value we'll get from the ref will only contain the function blur which we declared in our useImperativeHandle. It will not contain any other properties (I am logging the value to demonstrate this). The function itself is also "customized" to behave differently than what you'd normally expect. Here, it sets document.title and blurs the input when blur is invoked.
+
+```javascript
+const MyInput = React.forwardRef((props, ref) => {
+  const [val, setVal] = React.useState('');
+  const inputRef = React.useRef();
+
+  React.useImperativeHandle(ref, () => ({
+    blur: () => {
+      document.title = val;
+      inputRef.current.blur();
+    }
+  }));
+
+  return (
+    <input
+      ref={inputRef}
+      val={val}
+      onChange={e => setVal(e.target.value)}
+      {...props}
+    />
+  );
+});
+
+const App = () => {
+  const ref = React.useRef(null);
+  const onBlur = () => {
+    console.log(ref.current); // Only contains one property!
+    ref.current.blur();
+  };
+
+  return <MyInput ref={ref} onBlur={onBlur} />;
+};
+```
+
+2. **useLayoutEffect**
+
+While similar to some extent to useEffect(), it differs in that it will run after React has committed updates to the DOM. Used in rare cases when you need to calculate the distance between elements after an update or do other post-update calculations / side-effects. The signature is identical to useEffect, but it fires synchronously after all DOM mutations. Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside useLayoutEffect will be flushed synchronously, before the browser has a chance to pain.
+
+Example:
+Suppose you have an absolutely positioned element whose height might vary and you want to position another div beneath it. You could use getBoundingClientRect() to calculate the parent's height and top properties and then just apply those to the top property of the child. Here you would want to use useLayoutEffect rather than useEffect. See why in the examples below:
+
+With useEffect: (notice the jumpy behavior)
+```javascript
+const Message = ({boxRef, children}) => {
+  const msgRef = React.useRef(null);
+  React.useEffect(() => {
+    const rect = boxRef.current.getBoundingClientRect();
+    msgRef.current.style.top = `${rect.height + rect.top}px`;
+  }, []);
+
+  return <span ref={msgRef} className="msg">{children}</span>;
+};
+
+const App = () => {
+  const [show, setShow] = React.useState(false);
+  const boxRef = React.useRef(null);
+
+  return (
+    <div>
+      <div ref={boxRef} className="box" onClick={() => setShow(prev => !prev)}>Click me</div>
+      {show && <Message boxRef={boxRef}>Foo bar baz</Message>}
+    </div>
+  );
+};
+```
+
+With useLayoutEffect:
+```javascript
+const Message = ({boxRef, children}) => {
+  const msgRef = React.useRef(null);
+  React.useLayoutEffect(() => {
+    const rect = boxRef.current.getBoundingClientRect();
+    msgRef.current.style.top = `${rect.height + rect.top}px`;
+  }, []);
+
+  return <span ref={msgRef} className="msg">{children}</span>;
+};
+
+const App = () => {
+  const [show, setShow] = React.useState(false);
+  const boxRef = React.useRef(null);
+
+  return (
+    <div>
+      <div ref={boxRef} className="box" onClick={() => setShow(prev => !prev)}>Click me</div>
+      {show && <Message boxRef={boxRef}>Foo bar baz</Message>}
+    </div>
+  );
+};
+```
+
+2. **useDebugValue**
+
+Sometimes you might want to debug certain values or properties, but doing so might require expensive operations which might impact performance. useDebugValue is only called when the React DevTools are open and the related hook is inspected, preventing any impact on performance. useDebugValue can be used to display a label for custom hooks in React DevTools.
